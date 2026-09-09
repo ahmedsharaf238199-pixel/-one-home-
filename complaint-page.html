@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>WE One Home </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* ============================================================ */
+        /*  الهوية البصرية                                              */
+        /* ============================================================ */
+        :root {
+            --bg-page: #FAF9FE;
+            --purple-deep: #1E0734;
+            --purple-main: #5B21B6;
+            --purple-light: #EDE9FE;
+            --purple-soft: #F5F3FF;
+            --purple-neon: #8B5CF6;
+            --gold-main: #D97706;
+            --gold-light: #FBBF24;
+            --gold-neon: #F59E0B;
+            --gold-gradient: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+            --purple-gradient: linear-gradient(135deg, #2e0d4e 0%, #1E0734 100%);
+            --shadow-soft: 0 15px 40px rgba(91, 33, 182, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        html,
+        body {
+            background: var(--bg-page);
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
+            color: var(--purple-deep);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== خلفية ناعمة ===== */
+        .ambient-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, #FAF9FE 0%, #EDE9FE 100%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.45;
+            animation: orb-float 12s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            top: -10%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: var(--purple-neon);
+        }
+
+        .orb-2 {
+            bottom: -10%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: var(--gold-light);
+        }
+
+        @keyframes orb-float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(-40px, 60px) scale(1.1);
+            }
+        }
+
+        /* ============================================================ */
+        /*  الأزرار العلوية                                             */
+        /* ============================================================ */
+        .fixed-buttons {
+            position: absolute;
+            top: max(16px, env(safe-area-inset-top));
+            left: max(16px, env(safe-area-inset-left));
+            right: max(16px, env(safe-area-inset-right));
+            z-index: 999;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-neon {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 60px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            color: var(--purple-deep);
+            box-shadow: var(--shadow-soft);
+            text-decoration: none;
+        }
+
+        .btn-neon:hover {
+            background: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-neon i {
+            color: var(--purple-main);
+        }
+
+        /* تعديل بسيط على حاوية الأزرار لضمان التجاوب في الشاشات الصغيرة جداً */
+.fixed-buttons {
+    flex-wrap: wrap;
+}
+
+/* تصميم زر Tips And Tricks الملفت */
+/* تصميم زر Tips And Tricks الملفت بحجم أكبر */
+.btn-tips {
+    background: var(--gold-gradient) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    animation: pulse-gold 2s infinite;
+    /* التعديلات الجديدة لتكبير الزرار */
+    font-size: 16px !important; /* تكبير حجم الخط */
+    padding: 12px 24px !important; /* تكبير المسافات الداخلية */
+    margin-right: auto; /* عشان لو الشاشة صغيرة ياخد مساحة كويسة */
+}
+
+.btn-tips i {
+    color: #FFFFFF !important;
+    font-size: 45px; /* تكبير الأيقونة كمان عشان تتناسب مع حجم الزرار */
+}
+
+/* تأثير نبض الإضاءة لجذب انتباه المستخدم */
+@keyframes pulse-gold {
+    0% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+    }
+}
+
+        /* ===== الهيدر والعنوان ===== */
+        .header-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding-top: max(70px, env(safe-area-inset-top));
+            flex-shrink: 0;
+        }
+
+        .brand-logo {
+            width: clamp(70px, 11vw, 120px);
+            animation: float-logo 5s infinite ease-in-out;
+        }
+
+        @keyframes float-logo {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .hero-title h1 {
+            font-size: clamp(17px, 3vw, 26px);
+            font-weight: 900;
+            line-height: 1.4;
+            margin-top: 10px;
+            background: linear-gradient(135deg, var(--purple-deep), var(--purple-main));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ============================================================ */
+        /*  السلايدر                                                    */
+        /* ============================================================ */
+        .swiper {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            padding-bottom: 40px;
+        }
+
+        .swiper-wrapper {
+            align-items: center;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 16px;
+        }
+
+        /* ============================================================ */
+        /*  الكارت وتأثير النيون (الحبل الجاري)                        */
+        /* ============================================================ */
+        .flip-card {
+            width: 100%;
+            max-width: 480px;
+            height: 65vh;
+            max-height: 550px;
+            min-height: 420px;
+            perspective: 2000px;
+            cursor: pointer;
+            border-radius: 36px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.2, 0.85, 0.4, 1.2);
+            transform-style: preserve-3d;
+            border-radius: 36px;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* ===== الحبل النيون المتحرك ===== */
+        .flip-card-inner::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 40px;
+            padding: 4px;
+            background: conic-gradient(from 0deg,
+                    transparent 70%,
+                    var(--purple-neon) 85%,
+                    var(--gold-neon) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            animation: rotate-rope 2.5s linear infinite;
+            z-index: 0;
+            box-shadow: inset 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+
+        @keyframes rotate-rope {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== واجهات الكارت ===== */
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            border-radius: 36px;
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        .flip-card-front::-webkit-scrollbar,
+        .flip-card-back::-webkit-scrollbar {
+            display: none;
+        }
+
+        .flip-card-front {
+            background: var(--purple-gradient);
+            box-shadow: 0 20px 50px rgba(30, 7, 52, 0.2);
+            transform: rotateY(0deg);
+        }
+
+        .flip-card-front h2 {
+            color: #FFFFFF;
+            font-size: clamp(20px, 2.5vw, 28px);
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+
+        .flip-card-back {
+            background: #FFFFFF;
+            transform: rotateY(180deg);
+            box-shadow: 0 20px 50px rgba(217, 119, 6, 0.1);
+            justify-content: flex-start;
+        }
+
+        .flip-card-back h2 {
+            color: var(--purple-deep);
+            font-size: clamp(20px, 2.5vw, 26px);
+            margin-bottom: 20px;
+        }
+
+        /* ===== الأيقونات والبادج ===== */
+        .card-icon-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--gold-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .flip-card-back .card-icon-circle {
+            background: var(--gold-gradient);
+            color: #FFF;
+            border: none;
+            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.25);
+            margin-top: 10px;
+        }
+
+        .card-badge {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 16px;
+            border-radius: 40px;
+            margin-bottom: 8px;
+        }
+
+        .flip-card-front .card-badge {
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFF;
+        }
+
+        .flip-card-back .card-badge {
+            background: var(--purple-soft);
+            color: var(--purple-main);
+        }
+
+        /* ===== ستايل الإجابات ===== */
+        .answer-box {
+            background: var(--bg-page);
+            border-right: 4px solid var(--gold-main);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            width: 100%;
+            text-align: right;
+            font-size: clamp(14px, 1.5vw, 16px);
+            line-height: 1.8;
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .answer-box strong {
+            color: var(--purple-main);
+            font-weight: 800;
+        }
+
+        .answer-box .highlight {
+            color: var(--gold-main);
+            font-weight: 900;
+        }
+
+        .answer-box i {
+            color: var(--gold-main);
+            margin-left: 6px;
+        }
+
+        /* ===== تلميح "اضغط" ===== */
+        .flip-hint {
+            margin-top: auto;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse-hint 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-hint {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: translateX(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateX(-5px);
+            }
+        }
+
+        /* ===== أزرار السلايدر ===== */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--purple-main);
+            background: #FFF;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .swiper-button-next {
+            right: 10px;
+        }
+
+        .swiper-button-prev {
+            left: 10px;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--purple-main);
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        /* كارت الخلاصة الذهبي */
+        .card-final .flip-card-front {
+            background: var(--gold-gradient);
+        }
+
+        .card-final .flip-card-front h2 {
+            color: #FFF;
+        }
+
+        .card-final .card-icon-circle {
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFF;
+            border-color: transparent;
+        }
+
+        /* ============================================================ */
+        /*  RESPONSIVE                                                  */
+        /* ============================================================ */
+        @media (max-width: 480px) {
+            .flip-card {
+                height: 62vh;
+                min-height: 400px;
+            }
+
+            .flip-card-front,
+            .flip-card-back {
+                padding: 24px 18px;
+            }
+
+            .card-icon-circle {
+                width: 55px;
+                height: 55px;
+                font-size: 26px;
+            }
+
+            .answer-box {
+                padding: 12px 14px;
+                margin-bottom: 10px;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <!-- الأزرار العلوية -->
+    <div class="fixed-buttons">
+        <button class="btn-neon" onclick="history.back()">
+            <i class="fa-solid fa-arrow-right"></i> رجوع
+        </button>
+        <a href="index.html" class="btn-neon">
+            <i class="fa-solid fa-house"></i> الرئيسية
+        </a>
+        <!-- الزرار الجديد: Tips And Tricks -->
+        <a href="golden-rules.html" class="btn-neon btn-tips">
+            <i class="fa-solid fa-lightbulb"></i> Tips And Tricks
+        </a>
+    </div>
+
+    <!-- الهيدر والعنوان -->
+    <div class="header-container">
+        <img class="brand-logo" alt="WE Logo"
+            src="https://wsrv.nl/?url=drive.google.com/uc?id=1Qtf_5aVcJgLqV5TVYddNKrHWwyrbqrtE&output=png&w=1200">
+        <div class="hero-title">
+            <h1> اعتراض جه فى دماغك ؟<br>اضغط على السؤال للرد</h1>
+        </div>
+    </div>
+    <br
+    <!-- السلايدر والكروت -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+
+            <!-- ===== الكارت 1: حسبة الورقة والقلم ===== -->
+            <div class="swiper-slide">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-icon-circle"><i class="fa-solid fa-calculator"></i></div>
+                            <div class="card-badge"> 🤔  السؤال</div>
+                            <h2>العميل هيدفع 40 جنيه زيادة لو جدد بدري؟</h2>
+                            <div class="flip-hint"><i class="fa-regular fa-hand-pointer"></i> اضغط لمعرفة الرد</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="card-icon-circle"><i class="fa-solid fa-check-circle"></i></div>
+                            <div class="card-badge">✅ الإجابة</div>
+                            <h2>العميل مش بيخسر 40 جنيه!</h2>
+                            <div class="answer-box">
+                                العميل مش بيدفع مبلغ جديد، هو مجرد <strong>"بيقدّم" ميعاد الشحن</strong> مش أكثر.
+                            </div>
+                            <div class="answer-box">
+                                <strong>مثال:</strong> لو ميعاد التجديد يوم 30، وجاي يجدد يوم 20 (قبل ميعاده بـ 10
+                                أيام):
+                                العميل كده كان هيدفع يوم 30، هو كل اللي عمله إنه قدم الدفع 10 أيام.
+                            </div>
+                            <div class="answer-box">
+                                <strong>الخسارة الفعلية:</strong> قيمة الـ 10 أيام المتبقية من الأرضي (حوالي <span
+                                    class="highlight">12 جنيه</span>)، مش 40 جنيه!
+                            </div>
+                            <div class="answer-box">
+                                <i class="fa-solid fa-quote-right"></i> "يا فندم بدل ما تضرب مشوار كمان 10 أيام عشان 40
+                                جنيه، ريّح دماغك واشحن بفرق بسيط دلوقتي ووفر وقتك ومواصلاتك".
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== الكارت 2: أقوى مدخل للترقية (Upgrade) ===== -->
+            <div class="swiper-slide">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-icon-circle"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                            <div class="card-badge"> 🤔  السؤال</div>
+                            <h2>إزاي أقنع العميل يعلّي الباقة؟</h2>
+                            <div class="flip-hint"><i class="fa-regular fa-hand-pointer"></i> اضغط لمعرفة الرد</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="card-icon-circle"><i class="fa-solid fa-check-circle"></i></div>
+                            <div class="card-badge">✅ الإجابة</div>
+                            <h2>أقوى مدخل  (Upgrade)</h2>
+                            <div class="answer-box">
+                                بدل ما العميل يدفع فرق عشان يجدد نفس الباقة بدري، ده <strong>المفتاح</strong> عشان
+                                تقنعه يعلّي الباقة.
+                            </div>
+                            <div class="answer-box">
+                                <strong>سعر الجيجا أرخص:</strong> كل ما الباقة بتعلى، سعر الجيجا بيبقى أقل وأوفر للعميل.
+                            </div>
+                            <div class="answer-box">
+                                <strong>القرارات أسهل:</strong> فرق الفلوس بسيط ومقنع جداً مقارنة (حولت العيب لميزه ليك  ).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== الكارت 3: عرض 50% لمدة 3 شهور ===== -->
+            <div class="swiper-slide">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-icon-circle"><i class="fa-solid fa-percent"></i></div>
+                            <div class="card-badge"> 🤔  السؤال</div>
+                            <h2>لسه قلقان  </h2>
+                            <div class="flip-hint"><i class="fa-regular fa-hand-pointer"></i> اضغط لمعرفة الرد</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="card-icon-circle"><i class="fa-solid fa-check-circle"></i></div>
+                            <div class="card-badge">✅ الإجابة</div>
+                            <h2>لسه قدامنا 3 شهور من عرض الـ 50%</h2>
+                            <div class="answer-box">
+                                احنا لسه قدامنا <span class="highlight">3 شهور</span> من عرض الـ 50% على ما نقابل حالة
+                                التجديد المبكر.
+                            </div>
+                            <div class="answer-box">
+                                <i class="fa-solid fa-lightbulb"></i> هيكون العملاء استوعبو المنتج فعلاً، زي ما بيحصل في
+                                تغيير الأسعار.
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== الكارت 4: 10 جيجا هدية لـ 3 تجديدات ===== -->
+            <div class="swiper-slide">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-icon-circle"><i class="fa-solid fa-gift"></i></div>
+                            <div class="card-badge"> 🤔  السؤال</div>
+                            <h2>إيه اللي هيستفيده  العميل غير إنه يدفع بدري؟</h2>
+                            <div class="flip-hint"><i class="fa-regular fa-hand-pointer"></i> اضغط لمعرفة الرد</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="card-icon-circle"><i class="fa-solid fa-gift"></i></div>
+                            <div class="card-badge">✅ الإجابة</div>
+                            <h2>١٠ جيجا هدية لـ ٣ تجديدات</h2>
+                            <div class="answer-box">
+                                لو العميل قرر يجدد بدري، عنده عرض مميز: <strong>١٠ جيجا إضافية هدية</strong> لمدة <span
+                                    class="highlight">٣ تجديدات</span> متتالية.
+                            </div>
+                            <div class="answer-box">
+                                <strong>القيمة الفعلية:</strong> ١٠ جيجا × ٣ تجديدات = <span class="highlight">٣٠
+                                    جيجا</span> (قيمتها حوالي ٣٠ جنيه)
+                            </div>
+                            <div class="answer-box">
+                                <i class="fa-solid fa-star"></i> متكلف ١٢ جنيه وواخد جيجات بـ ٣٠ جنيه.. يعنى هو الكسبان!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== الكارت 5: ترحيل الباقة المتبقية من الأبليكيشن ===== -->
+            <div class="swiper-slide">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-icon-circle"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+                            <div class="card-badge"> 🤔  السؤال</div>
+                            <h2> الباقة المتبقية بتروح على العميل ؟</h2>
+                            <div class="flip-hint"><i class="fa-regular fa-hand-pointer"></i> اضغط لمعرفة الرد</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="card-icon-circle"><i class="fa-solid fa-check-circle"></i></div>
+                            <div class="card-badge">✅ الإجابة</div>
+                            <h2>الباقة المتبقية بتترحل معاك</h2>
+                            <div class="answer-box">
+                                لو جددت من الأبليكيشن ولسه باقي حاجة في باقاتك، <strong>مش بتضيع!</strong> كل
+                                الميجابايتس المتبقية بتترحل تلقائياً معاك.
+                            </div>
+                            <div class="answer-box">
+                                <strong>بنفس تاريخ انتهائها:</strong> العميل بيحتفظ بكل جيجا كان مدفوع فيها، من غير ما
+                                يخسر أي حاجة.
+                            </div>
+                            <div class="answer-box">
+                                <i class="fa-solid fa-lightbulb"></i> العميل مش بيخسر أي حاجة، بالعكس بيحتفظ بكل جيجا
+                                كان دافع ثمنها!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== الكارت 6: باقة إضافية للعميل المعترض ===== -->
+            <div class="swiper-slide">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-icon-circle"><i class="fa-solid fa-layer-group"></i></div>
+                            <div class="card-badge"> 🤔  السؤال</div>
+                            <h2>مش مقتنع بالتجديد المبكر.. في حل تاني؟</h2>
+                            <div class="flip-hint"><i class="fa-regular fa-hand-pointer"></i> اضغط لمعرفة الرد</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="card-icon-circle"><i class="fa-solid fa-check-circle"></i></div>
+                            <div class="card-badge">✅ الإجابة</div>
+                            <h2>باقة إضافية مدتها ٣٠ يوم</h2>
+                            <div class="answer-box">
+                                لو العميل لسه معترض وعايز حل وسط، تقدر تقدمله <strong>باقة إضافية</strong> مدتها ٣٠
+                                يوماً كاملة.
+                            </div>
+                            <div class="answer-box">
+                                <strong>الاستفادة:</strong> بيستفيد بيها خلال الشهر اللي بعده، من غير ما يلتزم بتجديد
+                                مبكر.
+                            </div>
+                            <div class="answer-box">
+                                <i class="fa-solid fa-crown" style="color: var(--gold-main);"></i> زي <strong>عميل
+                                    الجولد</strong> بالضبط: اتعود خلاص ان مفيش تجديد مبكر وبياخد باقة إضافية.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== الكارت 7: البيع الصح من الأول ===== -->
+            <div class="swiper-slide">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-icon-circle"><i class="fa-solid fa-handshake"></i></div>
+                            <div class="card-badge">🤔 السؤال</div>
+                            <h2>إزاي أحمي نفسي وأسهل الـ Upgrade؟</h2>
+                            <div class="flip-hint"><i class="fa-regular fa-hand-pointer"></i> اضغط لمعرفة الرد</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="card-icon-circle"><i class="fa-solid fa-check-circle"></i></div>
+                            <div class="card-badge">✅ الإجابة</div>
+                            <h2>البيع الصح من الأول</h2>
+                            <div class="answer-box">
+                                نقاشك مع العميل في <strong>أول تعاقد</strong> هو اللي بيحدد الطريق.
+                            </div>
+                            <div class="answer-box">
+                                <strong>لو حللت استهلاكه صح</strong> وخد الباقة المناسبة: مش هيحتاج تجديد مبكر أصلاً
+                                وهيفضل مرتاح.
+                            </div>
+                            <div class="answer-box">
+                                <strong>لو أصر وياخد باقة أقل:</strong> هيجيلك بعدها بنفسه عارف إنه غلطان، وهيعلّي
+                                الباقة بمنتهى السهولة وبدون أي مجهود بيعي منك.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== الكارت 8: الخلاصة النهائية ===== -->
+            <div class="swiper-slide">
+                <div class="flip-card card-final" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="card-icon-circle"><i class="fa-solid fa-star"></i></div>
+                            <div class="card-badge" style="background: rgba(0,0,0,0.15);">🏆 الخلاصة</div>
+                            <h2>ديما وصل للعميل فكره , أنت مش بتخسر فلوس، أنت بتستثمر صح!</h2>
+                            <div class="flip-hint" style="color: rgba(255,255,255,0.8);"><i
+                                    class="fa-regular fa-hand-pointer"></i> اضغط للخُلاصة</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <div class="card-icon-circle"><i class="fa-solid fa-crown"></i></div>
+                            <div class="card-badge">📌 الخلاصة النهائية</div>
+                            <h2>العميل <span style="color: var(--gold-main);">كسبان</span> في كل الأحوال</h2>
+                            <div class="answer-box">
+                                <strong>الأوفر دائماً</strong> للعميل هو الانتقال للباقة الأعلى ليحصل على جيجات أكثر
+                                بسعر أوفر بكثير من شحن الباقات الإضافية.
+                            </div>
+                            <div class="answer-box">
+                                <i class="fa-solid fa-bolt"></i> استغل العرض، ريح العميل بمشوار واحد، وحقق تارجتك بذكاء!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- أزرار التنقل -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- نقاط التقدم -->
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- المكتبات -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        // =====================================================================
+        // خلفية Three.js
+        // =====================================================================
+        (function init3DBackground() {
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.inset = '0';
+            canvas.style.zIndex = '1';
+            canvas.style.pointerEvents = 'none';
+            document.body.appendChild(canvas);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 12;
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const count = 120;
+            const positions = new Float32Array(count * 3);
+            for (let i = 0; i < count * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * 20;
+            }
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const mat = new THREE.PointsMaterial({
+                color: 0xD97706, size: 0.06, transparent: true, opacity: 0.1, blending: THREE.AdditiveBlending,
+            });
+            const particles = new THREE.Points(geo, mat);
+            scene.add(particles);
+
+            let time = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.005;
+                particles.rotation.y += 0.0004;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+
+        // =====================================================================
+        // السلايدر (Swiper)
+        // =====================================================================
+        const swiper = new Swiper('.mySwiper', {
+            direction: 'horizontal',
+            slidesPerView: 1,
+            spaceBetween: 10,
+            speed: 500,
+            effect: 'slide',
+            grabCursor: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            keyboard: { enabled: true },
+        });
+
+        document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
+    </script>
+
+</body>
+
+</html>
